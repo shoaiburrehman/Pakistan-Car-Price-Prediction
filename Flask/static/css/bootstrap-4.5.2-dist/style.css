@@ -1,0 +1,29 @@
+body {
+  width:50%;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.section{
+  position:relative;
+  top:20px;
+  left:20px;
+}
+.input-prefix {
+    position: absolute;
+    top: 54.3%;
+    background-color: #b3b3b3;
+    left: 47.63%;
+    width: 32px;
+    height: 37px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.input-icon{
+  position: absolute;
+  top:10px;
+  left:8px;
+}

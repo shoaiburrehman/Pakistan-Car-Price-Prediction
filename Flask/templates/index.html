@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+    <meta charset="UTF-8">
+    <title>ML API</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-4.5.2-dist/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-4.5.2-dist/css/bootstrap.min.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script type="text/javscript" src="{{ url_for('static', filename='css/bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+</head>
+
+
+<body>
+    <div class="section">
+        <div className="my-5">
+            <h1 className="text-center"> Pakistan Used Cars Prediction </h1>
+        </div>
+        <div className="container contact-div">
+            <div className="row">
+                <div className="col-md-6 col-10 mx-auto">
+                     <div class="login">
+     
+         <!-- Main Input For Receiving Query to our ML -->
+                    <form action="{{ url_for('predict')}}"method="post">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Brand</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="Brand">
+                          <option>-- Select Car Brand --</option>
+                          <option>Toyota</option>
+                          <option>Suzuki</option>
+                          <option>Honda</option>
+                          <option>Daihatsu</option>
+                          <option>Mitsubishi</option>
+                          <option>KIA</option>
+                          <option>Nissan</option>
+                          <option>BMW</option>
+                          <option>Mazda</option>
+                          <option>Chevrolet</option>
+                          <option>Daewoo</option>
+                          <option>Audi</option>
+                          <option>Range Rover</option>
+                          <option>Changan</option>
+                          <option>Porsche</option>
+                          <option>Subaru</option>
+                          <option>Land Rover</option>
+                          <option>Other Brands</option>
+                        </select>
+                      </div>
+                      <label for="exampleInputPassword1">Condition</label>
+                      <div class="form-group">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" name="Condition" type="radio" id="inlineRadio1" value="Used">
+                          <label class="form-check-label" for="inlineRadio1">Used</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="Condition" id="inlineRadio2" value="New">
+                          <label class="form-check-label" for="inlineRadio2">New</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Fuel</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="Fuel">
+                          <option>-- Select Fuel Type --</option>
+                          <option>Diesel</option>
+                          <option>Petrol</option>
+                          <option>CNG</option>
+                          <option>Hybrid</option>
+                          <option>LPG</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">KMs Driven</label>
+                        <input type="text" class="form-control" name="KMs Driven" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter KMs Driven">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Model</label>
+                        <select class="form-control selectModel"  name="Model" id="exampleFormControlSelect1">
+                
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Registered City</label>
+                        <select class="form-control selectCity" id="exampleFormControlSelect1" name="Registered City">
+                
+                        </select>
+                      </div>
+                      <label for="exampleInputPassword1">Transaction Type</label>
+                      <div class="form-group">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" name="Transaction Type" type="radio" id="inlineRadio1" value="Cash">
+                          <label class="form-check-label" for="inlineRadio1">Cash</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="Transaction Type" id="inlineRadio2" value="Installment/Leasing">
+                          <label class="form-check-label" for="inlineRadio2">Installment/Leasing</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Year</label>
+                          <input type="text" class="form-control datepicker" id="exampleInputEmail1" name="Year" placeholder="Select date (till 2020)"/>
+                      </div>
+                      
+                      
+                      <button type="submit" class="btn btn-outline-primary">Predict</button>
+                    </form>
+                   <br>
+                   <div className="my-5">
+                       <h2 className="text-center border border-primary"> {{ prediction_text }} </h2>
+                   </div>
+                   
+                  </div>
+              </div>
+           </div>
+        </div>
+    </div>
+    <script> 
+        var select = document.getElementsByClassName("selectModel");
+        var elmts = ['-- Select Car Model --','Prado', 'Bolan', 'Alto', 'Corolla XLI', 'Corrolla Altis', 'Cultus VXL', 'Civic VTi', 'Khyber', 'Liana', 'Passo', 'Civic Prosmetic', 'Civic EXi', 'Charade', 'Pajero Mini', 'Margalla', 'City IVTEC', 'Classic', 'Other', 'Corolla GLI', 'Cultus VXR', 'Dayz Highway Star', 'Mehran VX', 'Vitz', 'Mehran VXR', 'Carry', 'Cultus VX', 'Baleno', 'Mira', 'Civic VTi Oriel Prosmatec', 'Cuore', 'Corolla 2.0 D', 'Corolla XE', 'Surf', 'FX', 'City IDSI', 'Premio', 'Sprinter', '3 Series', 'Hilux', 'Lancer', 'Swift', 'Estima', 'Vamos', 'Starlet', 'Prius', 'Joy', '323', 'Racer', 'Sunny', 'Accord', 'Zest', 'AD Van', 'APV', 'March', 'Pride', 'Sportage', 'Terios Kid', 'Santro', 'Fit', 'V2', 'City Aspire', 'Civic VTi Oriel', 'BR-V', 'Kei', 'Probox', 'Hijet', '86', 'Yaris', 'Aygo', 'Rush', 'Dayz', 'Fortuner', 'Every', 'Camry', 'Aqua', 'Corolla Assista', 'Sera', 'Acty', 'Moco', 'Wagon R', 'Smart', 'Demio', 'Corona', 'Every Wagon', 'Civic Hybrid', 'Duet', 'Vezel', 'Corolla Axio', 'City Vario', 'Corolla Fielder', 'Palette Sw', 'Platz', 'Lancer Evolution', 'Move', 'Gx Series', '5 Series', '240 Gd', 'Mira Cocoa', 'Wingroad', 'Belta', 'Atrai Wagon', 'Minicab Bravo', 'Allion', 'Blue Bird', 'Exclusive', 'N Wgn', 'CT200h', 'Spectra', 'Beat', 'Mark II', 'Airwave', 'Supra', 'Ek Wagon', 'EK Custom', 'Lite Ace', '120 Y', 'Harrier', 'Pixis Epoch', '626', 'Galant', 'Sonica', 'Carol Eco', 'Accent', 'IST', 'Land Cruiser', 'Palette', 'Juke', 'Potohar', 'CR-V', 'Clipper', 'Sirius', 'Roox', '350Z', 'Pajero', 'Vitara', 'Alto Lapin', 'Wagon R Stingray', 'Prius Alpha', 'Minica', 'Cast', 'Carol', 'Hustler', 'S Class', 'Boon', 'Jimny', 'Fj Cruiser', 'X-PV', 'Esse', 'Mirage', 'RX8', 'Carisma', 'iQ', 'Ek Sport', 'CLK Class', 'Note', 'Stream', 'Carrier', 'Town Ace', 'I', 'N Box', 'Excel', 'B2200', 'Tundra', 'Scrum', 'Celica', 'Van', 'C Class', 'Pickup', 'Kizashi', 'Freed', 'RX Series', 'Life', 'Otti', 'Spacia', 'Cervo', 'X5 Series', '200 D', 'Patrol', 'Acura', 'Crown', 'Copen', 'Scrum Wagon', 'Charmant', 'Mark X', 'Spike', 'Vogue', 'Axela', '929', 'Ravi', 'A1', 'A3', '2 Series', 'Grace Hybrid', 'Noah', 'Jade Hybrid', 'Tanto', 'X Trail', 'EK Space Custom', 'Cielo', 'I Mivec', 'N One', 'i8', 'S660', 'Tiida', 'CR-Z', 'Verossa', 'Flair Wagon', 'E Class', 'Sienta', 'Wish', 'L300', 'Auris', 'Cayenne', 'Silverado', 'Insight', 'Thats', 'C-HR', 'Familia Van', 'Jimny Sierra', 'D Series', 'Escudo', 'Vanette', 'Rvr', 'Ciaz', 'LX Series', '250 D', 'Cami', 'Bluebird Sylphy', 'Pino', 'Ignis', 'A4', 'Wake', 'Spark', 'MR Wagon', 'President', 'Sirion', 'Q7', 'Zest Spark', 'Cruze', 'B B', 'Avanza', 'Flair', 'ISIS', 'Cross Road', '7 Series', 'Matiz', 'Pulsar', 'A6', 'Sonata', '6 Series', 'Cressida', 'Solio', 'Alphard Hybrid', 'Azwagon', 'Rav4', 'Toyo Ace', 'Chitral', 'Lucida', 'Safari', 'Murrano', 'Kix', 'Previa', 'Mega Carry Xtra', 'Optra', 'cars-other-23', 'Infinity', 'Gilgit', 'Shogun', 'Hse 4.6', 'Sport', 'Toppo', '808', 'Luce', 'cars-other-37', 'Ractis', 'Figaro', 'L200', 'cars-suzuki-86', 'cars-other-7', 'A5', 'Kalam', 'Cappuccino', 'Echo', 'Bego', 'Elantra', 'Rocky', 'cars-other-5', 'A Class', 'Gran', 'X1', 'Hiace', 'Coaster', 'Raum', 'Colt', 'Sx4', 'Porte', 'Succeed', 'Qashqai', 'MR2', 'HR-V', 'Sylphy', 'Is Series', 'Shehzore']; 
+        $.each(elmts, function(i, p) { 
+            $('.selectModel').append($('<option></option>') 
+                        .val(p).html(p)); 
+        }); 
+      
+        var select1 = document.getElementsByClassName("selectCity");
+        var city = ['-- Select Registered City --', 'Karachi', 'Hyderabad', 'Bagh', 'Sukkar', 'Bahawalnagar', 'Lahore',
+                     'Askoley', 'Khanpur', 'Quetta', 'Karak', 'Islamabad', 'Sialkot',
+                     'Pakpattan', 'Lasbela', 'Sukkur', 'Rawalpindi', 'Bahawalpur',
+                     'Ali Masjid', 'Multan', 'Khaplu', 'Tank', 'Badin', 'Rahimyar Khan',
+                     'Chilas', 'Kasur', 'Khushab', 'Vehari', 'Chitral', 'Khanewal',
+                     'Attock', 'Larkana', 'Bela', 'Khairpur', 'Kandhura', 'Abbottabad',
+                     'Nawabshah', 'Bhimber', 'Mardan', 'Chiniot', 'Faisalabad',
+                     'Sahiwal', 'Haripur', 'Peshawar', 'Kohat', 'Sargodha', 'Jhelum',
+                     'Gujrat', 'Nowshera', 'Gujranwala', 'Mirpur', 'Burewala',
+                     'Mandi Bahauddin', 'Muzaffargarh', 'Wah', 'Dera Ghazi Khan',
+                     'Sheikhüpura', 'Okara', 'Dera Ismail Khan', 'Swat', 'Swabi',
+                     'Muzaffarabad']; 
+        $.each(city, function(i, p) { 
+            $('.selectCity').append($('<option></option>') 
+                        .val(p).html(p)); 
+        }); 
+ 
+        $(".datepicker").datepicker({
+            format: " yyyy",
+            viewMode: "years", 
+            minViewMode: "years"
+        });
+        
+    </script>
+
+</body>
+</html>
