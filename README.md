@@ -4,7 +4,7 @@
 
 * This repository is for the Kaggle's Car Price Prediction to Identify Pakistan used Car prices.
 * We cleaned the data and did Exploratory Data Analysis from different perspectives to know in-detail about Cars background.
-* For our model building we used are  Linear, Ridge Lasso, Random Forest and Decision Tree Regressors.
+* For our model building, models we used are Linear, Ridge Lasso, Random Forest and Decision Tree Regressors.
 
 
 ## Resources We Used
